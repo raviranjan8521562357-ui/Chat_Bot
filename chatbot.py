@@ -1,10 +1,14 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 import streamlit as st
+import os
 
 load_dotenv()
 
-api_key = "AIzaSyDHw59bEEew4UVRPsQVksJQpoTPBlPOCik"
+# Read API key from environment to avoid committing secrets
+api_key = os.getenv("GOOGLE_API_KEY")
+if not api_key:
+    st.error("Missing GOOGLE_API_KEY environment variable. Add it to your .env file and restart.")
 
 model = ChatGoogleGenerativeAI(
     model="gemini-2.5-pro",  # or gemini-1.5-flash (faster, cheaper)
@@ -13,7 +17,7 @@ model = ChatGoogleGenerativeAI(
 )
 
 # Streamlit UI setup
-st.title("💬 Vishnu's Chatbot")
+st.title("💬 Ravi's Chatbot")
 
 # Initialize session state to store messages
 if "messages" not in st.session_state:
